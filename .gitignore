@@ -1,5 +1,11 @@
+# OSX specific
+.DS_Store
+
 # ignore npm packages
 node_modules
 
-# OSX specific
-.DS_Store
+# ignore credentials
+credentials.js
+
+# ignore SSL certs
+ssl/*
