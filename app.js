@@ -1,5 +1,8 @@
 /*jshint node: true*/
 var path = require('path');
+var https = require('https');
+var fs = require('fs');
+var TwigestAction = require('./lib/twigest');
 var express = require('express');
 var app = express();
 var handlebars = require('express-handlebars').create({
@@ -44,6 +47,9 @@ app.set('port', process.env.PORT || 3000);
 // Landing Page
 app.get('/', function (req, res) {
     res.render('index');
+	var twigestAction = new TwigestAction();
+	
+	twigestAction.getAllFriends('bkrem_', 10);
 });
 
 
@@ -64,6 +70,15 @@ app.use(function (req, res, next) {
     res.render('404');
 });
 
-app.listen(app.get('port'), function () {
+
+/**
+ * SSL & SERVER INIT
+ */
+var sslOptions = {
+    key: fs.readFileSync(__dirname + '/ssl/twigest.pem'),
+    cert: fs.readFileSync(__dirname + '/ssl/twigest.crt')
+};
+
+https.createServer(sslOptions, app).listen(app.get('port'), function () {
     console.log('Express server started @ http://localhost:' + app.get('port'));
 });
