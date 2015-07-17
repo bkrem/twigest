@@ -49,7 +49,8 @@ app.get('/', function (req, res) {
     res.render('index');
 	var twigestAction = new TwigestAction();
 	
-	twigestAction.getAllFriends('bkrem_', 10);
+	//twigestAction.getAllFriends('bkrem_', 10);
+	twigestAction.getVerifiedOnly('bkrem_', 20);
 });
 
 
@@ -80,5 +81,6 @@ var sslOptions = {
 };
 
 https.createServer(sslOptions, app).listen(app.get('port'), function () {
-    console.log('Express server started @ http://localhost:' + app.get('port'));
+	var protocol = this;
+	protocol = https ? console.log('Express server started @ https://localhost:' + app.get('port')) : console.log('Express server started @ http://localhost:' + app.get('port'));
 });
