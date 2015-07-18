@@ -49,8 +49,8 @@ app.get('/', function (req, res) {
     res.render('index');
 	var twigestAction = new TwigestAction();
 	
-	//twigestAction.getAllFriends('bkrem_', 10);
-	twigestAction.getVerifiedOnly('bkrem_', 20);
+	//twigestAction.getFriends('bkrem_');
+	twigestAction.getVerifiedFriends('bkrem_', 100);
 });
 
 
