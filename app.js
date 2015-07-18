@@ -2,7 +2,7 @@
 var path = require('path');
 var https = require('https');
 var fs = require('fs');
-var TwigestAction = require('./lib/twigest');
+var TweegestAction = require('./lib/tweegest');
 var express = require('express');
 var app = express();
 var handlebars = require('express-handlebars').create({
@@ -47,10 +47,11 @@ app.set('port', process.env.PORT || 3000);
 // Landing Page
 app.get('/', function (req, res) {
     res.render('index');
-	var twigestAction = new TwigestAction();
+	var tweegest = new TweegestAction();
 	
-	//twigestAction.getFriends('bkrem_');
-	twigestAction.getVerifiedFriends('bkrem_', 100);
+	//tweegest.getFriendIds('bkrem_', 20);
+	//tweegest.getFriendObjects('bkrem_');
+	tweegest.getVerifiedFriends('bkrem_', 100);
 });
 
 
