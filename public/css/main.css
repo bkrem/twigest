@@ -64,7 +64,7 @@ header {
   border-top-right-radius: 8px;
 }
 
-.cardcontainer {
+.card-container {
   width: 320px;
   margin: 3em auto 1em auto;
   -webkit-border-radius: 8px;
@@ -88,7 +88,7 @@ header {
   opacity: 1;
 }
 
-.avatarcontainer {
+.avatar-container {
   position: absolute;
   bottom: 0;
   right: 0;
