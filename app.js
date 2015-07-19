@@ -8,13 +8,13 @@ var app = express();
 var handlebars = require('express-handlebars').create({
 		defaultLayout: 'main',
 		helpers: {
-				section: function (name, options) {
-						if (!this._sections) this._sections = {}; // initialize _sections object
-						this._sections[name] = options.fn(this);
-						return null;
-				}
+			section: function (name, options) {
+				if (!this._sections) this._sections = {}; // initialize _sections object
+				this._sections[name] = options.fn(this);
+				return null;
+			}
 		}
-});
+	});
 
 // Set up handlebars view engine
 app.set('views', path.join(__dirname, 'views'));
@@ -46,12 +46,21 @@ app.set('port', process.env.PORT || 3000);
 
 // Landing Page
 app.get('/', function (req, res) {
-		res.render('index');
+	res.render('index');
 	var tweegest = new TweegestAction();
 
 	//tweegest.getFriendIds('bkrem_', 20);
 	//tweegest.getFriendObjects('bkrem_');
-	tweegest.getVerifiedFriends('bkrem_', 100);
+	//tweegest.getVerifiedFriends('bkrem_', 100);
+});
+
+// User Handle Form Submission
+app.get('/userhandle', function (req, res) {
+	var handle = req.query.userhandle;
+	var tweegest = new TweegestAction();
+
+	tweegest.getVerifiedFriends(handle);
+	res.render('index');
 });
 
 
