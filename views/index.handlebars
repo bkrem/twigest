@@ -35,15 +35,15 @@
 		<div class="data">
 			<ul>
 				<li>
-					2,934
+					{{userTweets}}
 					<span>Tweets</span>
 				</li>
 				<li>
-					1,119
+					{{userFollowers}}
 					<span>Followers</span>
 				</li>
 				<li>
-					530
+					{{userFollowing}}
 					<span>Following</span>
 				</li>
 			</ul>
@@ -64,5 +64,13 @@
 				});
 			}
 		);
+	</script>
+
+	<script src="/socket.io/socket.io.js"></script>
+	<script>
+		var socket = io.connect("http://localhost");
+		socket.on('test' function (data) {
+			console.log(data);
+		});
 	</script>
 {{/section}}
