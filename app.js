@@ -1,7 +1,9 @@
-/*jshint node: true*/
+/*jshint laxcomma:true, node: true*/
 var path = require('path');
 var https = require('https');
+var http = require('http');
 var fs = require('fs');
+var io = require('socket.io')(server);
 var TweegestAction = require('./lib/tweegest');
 var express = require('express');
 var app = express();
@@ -56,10 +58,10 @@ app.get('/', function (req, res) {
 
 // User Handle Form Submission
 app.get('/userhandle', function (req, res) {
-	var handle = req.query.userhandle;
-	var tweegest = new TweegestAction();
+	var handle = req.query.userhandle
+	,	tweegest = new TweegestAction();
 
-	tweegest.getVerifiedFriends(handle);
+	tweegest.getFriendObjects({ user: handle });
 	res.render('index');
 });
 
@@ -83,14 +85,20 @@ app.use(function (req, res, next) {
 
 
 /**
- * SSL & SERVER INIT
+ * SSL, SERVER & SOCKET.IO INIT
  */
+
 var sslOptions = {
 		key: fs.readFileSync(__dirname + '/ssl/twigest.pem'),
 		cert: fs.readFileSync(__dirname + '/ssl/twigest.crt')
 };
 
-https.createServer(sslOptions, app).listen(app.get('port'), function () {
-	var protocol = this;
-	protocol = https ? console.log('Express server started @ https://localhost:' + app.get('port')) : console.log('Express server started @ http://localhost:' + app.get('port'));
+var server = https.createServer(sslOptions, app);
+server.listen(app.get('port'), function () {
+	console.log('Express server started @ https://localhost:' + app.get('port'));
+});
+
+io.on('connection', function () {
+	socket.emit('test', { hello: 'world!' });
+	{ console.log(data); }
 });
