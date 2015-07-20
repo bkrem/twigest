@@ -99,7 +99,7 @@ header {
   display: block;
 }
 
-.avatarcontainer:hover > .hover {
+.avatar-container:hover > .hover {
   opacity: 1;
 }
 
