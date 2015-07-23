@@ -16,15 +16,15 @@
 <div class="card-container">
 	<header>
 		<div class="bio">
-			<img src="http://www.croop.cl/UI/twitter/images/up.jpg" alt="background" class="bg">
+			<img class="bg" src={{user.background_img}} alt="background">
 			<div class="desc">
-				<h3>@carlf</h3>
-				<p>Carl Fredricksen is the protagonist in Up. He also appeared in Dug's Special Mission as a minor character.</p>
+				<h3>{{user.name}}</h3>
+				<p>{{user.description}}</p>
 			</div>
 		</div>
 
 		<div class="avatar-container">
-			<img src="http://www.croop.cl/UI/twitter/images/carl.jpg" alt="avatar" class="avatar">
+			<img src={{user.avatar}} alt="avatar" class="avatar">
 			<div class="hover">
 					<div class="fa fa-twitter"></div>
 			</div>
@@ -35,15 +35,15 @@
 		<div class="data">
 			<ul>
 				<li>
-					{{userTweets}}
+					{{user.tweets}}
 					<span>Tweets</span>
 				</li>
 				<li>
-					{{userFollowers}}
+					{{user.followers}}
 					<span>Followers</span>
 				</li>
 				<li>
-					{{userFollowing}}
+					{{user.following}}
 					<span>Following</span>
 				</li>
 			</ul>
@@ -69,7 +69,7 @@
 	<script src="/socket.io/socket.io.js"></script>
 	<script>
 		var socket = io.connect("http://localhost");
-		socket.on('test' function (data) {
+		socket.on('test', function (data) {
 			console.log(data);
 		});
 	</script>
