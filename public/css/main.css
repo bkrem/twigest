@@ -80,7 +80,9 @@ header {
 }
 
 .bg {
-  border-bottom: 8px solid #5cc0ff;
+    max-width: 320px;
+    max-height: 180px;
+    border-bottom: 8px solid #5cc0ff;
 }
 
 .bio:hover > .desc {

@@ -59,10 +59,23 @@ app.get('/', function (req, res) {
 // User Handle Form Submission
 app.get('/userhandle', function (req, res) {
 	var handle = req.query.userhandle
+	,	target = {}
 	,	tweegest = new TweegestAction();
 
-	tweegest.getFriendObjects({ user: handle });
-	res.render('index');
+	tweegest.getFriendObjects({
+		user: handle,
+		callback: function (friends) {
+			target.name = friends[0].name;
+			target.description = friends[0].description;
+			target.tweets = friends[0].statuses_count;
+			target.followers = friends[0].followers_count;
+			target.following = friends[0].friends_count;
+			target.avatar = friends[0].profile_image_url_https;
+			target.background_img = friends[2].profile_background_image_url_https; // FIXME: Check for valid image size in ratio to card
+			console.log(target);
+			res.render('index', {user: target});
+		}
+	});
 });
 
 
