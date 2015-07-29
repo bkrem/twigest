@@ -1,0 +1,69 @@
+<title>Friend Overview</title>
+
+<h1 class="headline text-center">Select who to track</h1>
+
+<div class="container text-center">
+	{{#each user}}
+		<div class="card-container">
+			<header>
+				<div class="bio">
+					<img class="bg" src={{profile_background_image_url_https}} alt="background">
+					<div class="desc">
+						<h3>{{name}}</h3>
+						<p>{{description}}</p> <!-- FIXME: Description overflow -->
+					</div>
+				</div>
+
+				<div class="avatar-container">
+					<img src={{profile_image_url_https}} alt="avatar" class="avatar">
+					<div class="hover">
+							<div class="fa fa-twitter"></div>
+					</div>
+				</div>
+			</header>
+
+			<div class="content">
+				<div class="data">
+					<ul>
+						<li>
+							{{statuses_count}}
+							<span>Tweets</span>
+						</li>
+						<li>
+							{{followers_count}}
+							<span>Followers</span>
+						</li>
+						<li>
+							{{friends_count}}
+							<span>Following</span>
+						</li>
+					</ul>
+				</div>
+
+				<div class="follow"> <div class="fa fa-twitter"></div> Follow</div>
+			</div>
+		</div>
+	{{/each}}
+</div>
+
+{{#section 'jquery'}}
+	<!-- Follow Button Effect -->
+	<script type="text/javascript">
+		$(document).ready(
+			function followClick() {
+				$('.follow').on("click", function() {
+			  	$('.follow').css('background-color', '#34CF7A');
+			  	$('.follow').html('<div class="fa fa-check"></div> Following');
+				});
+			}
+		);
+	</script>
+
+	<script src="/socket.io/socket.io.js"></script>
+	<script>
+		var socket = io.connect("http://localhost");
+		socket.on('test', function (data) {
+			console.log(data);
+		});
+	</script>
+{{/section}}
