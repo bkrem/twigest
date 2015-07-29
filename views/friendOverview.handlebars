@@ -2,20 +2,32 @@
 
 <h1 class="headline text-center">Select who to track</h1>
 
-<div class="container text-center">
+<div class="container col-lg-12 text-center">
+
 	{{#each user}}
 		<div class="card-container">
+
+			{{#if verified}}
+				<div class="icon-verified">
+					<span class="fa fa-stack fa-lg">
+						<i class="fa fa-certificate fa-stack-2x"></i>
+						<i class="fa fa-check fa-stack-1x fa-inverse"></i>
+					</span>
+				</div>
+			{{/if}}
+			
 			<header>
 				<div class="bio">
-					<img class="bg" src={{profile_background_image_url_https}} alt="background">
+					<img class="bg" src="http://hdwallpapersinhd.com/wallpapers/2015/03/Twitter-Logo-black-dark-HD-wallpaper-2015.jpg" alt="background">
 					<div class="desc">
-						<h3>{{name}}</h3>
+						<span class="id hidden">{{id}}</span>
+						<h3 class="name">{{name}}</h3>
 						<p>{{description}}</p> <!-- FIXME: Description overflow -->
 					</div>
 				</div>
 
 				<div class="avatar-container">
-					<img src={{profile_image_url_https}} alt="avatar" class="avatar">
+					<img src="{{profile_image_url_https}}" alt="avatar" class="avatar">
 					<div class="hover">
 							<div class="fa fa-twitter"></div>
 					</div>
@@ -44,6 +56,7 @@
 			</div>
 		</div>
 	{{/each}}
+
 </div>
 
 {{#section 'jquery'}}
@@ -51,9 +64,12 @@
 	<script type="text/javascript">
 		$(document).ready(
 			function followClick() {
-				$('.follow').on("click", function() {
-			  	$('.follow').css('background-color', '#34CF7A');
-			  	$('.follow').html('<div class="fa fa-check"></div> Following');
+				$('.card-container').on("click", function() {
+			  		$(this).find('.follow').css('background-color', '#34CF7A');
+			  		$(this).find('.follow').html('<div class="fa fa-check"></div> Following');
+
+					var follow = $(this).find('.id');
+					console.log(follow.html());
 				});
 			}
 		);

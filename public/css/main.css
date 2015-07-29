@@ -67,7 +67,8 @@ header {
 .card-container {
     display: inline-block;
     width: 320px;
-    height: 342px;
+    min-height: 342px;
+    max-height: 342px;
     margin: 3em 0.5em 1em 0.5em;
     -webkit-border-radius: 8px;
     -moz-border-radius: 8px;
@@ -111,6 +112,15 @@ header {
     opacity: 1;
 }
 
+.icon-verified {
+    position: absolute;
+    z-index: 99;
+}
+
+.icon-verified .fa-certificate {
+    color: #55ACEE;
+}
+
 .avatar {
     position: relative;
     width: 100%;
@@ -128,7 +138,7 @@ header {
     height: 65px;
 }
 
-.avatar:hover + .hover {
+.avatar:hover > .hover {
     opacity: 1;
     cursor: pointer;
 }
@@ -168,8 +178,13 @@ header {
 }
 
 .data {
+    width: 100%;
     margin-top: .6em;
     color: #81878b;
+}
+
+.data ul {
+    padding-left: 0;
 }
 
 .data li {
