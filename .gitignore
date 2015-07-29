@@ -9,3 +9,6 @@ credentials.js
 
 # ignore SSL certs
 ssl/*
+
+# ignore TODO list
+TODO.txt
