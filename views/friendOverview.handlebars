@@ -52,7 +52,7 @@
 					</ul>
 				</div>
 
-				<div class="follow"> <div class="fa fa-twitter"></div> Follow</div>
+				<div class="track"> <div class="fa fa-twitter"></div> Track</div>
 			</div>
 		</div>
 	{{/each}}
@@ -60,16 +60,16 @@
 </div>
 
 {{#section 'jquery'}}
-	<!-- Follow Button Effect -->
+	<!-- Track Button Effect -->
 	<script type="text/javascript">
 		$(document).ready(
 			function followClick() {
 				$('.card-container').on("click", function() {
-			  		$(this).find('.follow').css('background-color', '#34CF7A');
-			  		$(this).find('.follow').html('<div class="fa fa-check"></div> Following');
+			  		$(this).find('.track').css('background-color', '#34CF7A');
+			  		$(this).find('.track').html('<div class="fa fa-check"></div> Tracking');
 
-					var follow = $(this).find('.id');
-					console.log(follow.html());
+					var track = $(this).find('.id');
+					console.log(track.html());
 				});
 			}
 		);

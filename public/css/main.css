@@ -245,7 +245,7 @@ header {
     line-height: 1.5em;
 }
 
-.follow {
+.track {
     margin: 1.5em auto 0 auto;
     background-color: #2589cc;
     width: 150px;
@@ -272,7 +272,7 @@ header {
     transition-timing-function: ease;
 }
 
-.follow:hover {
+.track:hover {
     background-color: #167abd;
     cursor: pointer;
 }
