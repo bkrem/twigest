@@ -15,7 +15,7 @@
 					</span>
 				</div>
 			{{/if}}
-			
+
 			<header>
 				<div class="bio">
 					<img class="bg" src="http://hdwallpapersinhd.com/wallpapers/2015/03/Twitter-Logo-black-dark-HD-wallpaper-2015.jpg" alt="background">
@@ -38,15 +38,15 @@
 				<div class="data">
 					<ul>
 						<li>
-							{{statuses_count}}
+							{{#numFormat}}{{statuses_count}}{{/numFormat}}
 							<span>Tweets</span>
 						</li>
 						<li>
-							{{followers_count}}
+							{{#numFormat}}{{followers_count}}{{/numFormat}}
 							<span>Followers</span>
 						</li>
 						<li>
-							{{friends_count}}
+							{{#numFormat}}{{friends_count}}{{/numFormat}}
 							<span>Following</span>
 						</li>
 					</ul>
