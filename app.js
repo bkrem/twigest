@@ -14,6 +14,10 @@ var handlebars = require('express-handlebars').create({
 				if (!this._sections) this._sections = {}; // initialize _sections object
 				this._sections[name] = options.fn(this);
 				return null;
+			},
+			// Adds ability to comma-separate large integer values from Twitter API for frontend
+			numFormat: function (options) {
+				return options.fn(this).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 			}
 		}
 	});
