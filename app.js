@@ -16,6 +16,7 @@ var handlebars = require('express-handlebars').create({
 				return null;
 			},
 			// Adds ability to comma-separate large integer values from Twitter API for frontend
+			// TODO: Add "K" & "M" abbreviations
 			numFormat: function (options) {
 				return options.fn(this).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 			}
