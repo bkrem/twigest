@@ -83,7 +83,7 @@ header {
 }
 
 .bg {
-    max-width: 320px;
+    width: 100%;
     max-height: 180px;
     border-bottom: 8px solid #5cc0ff;
     -webkit-background-size: cover;
@@ -92,9 +92,13 @@ header {
     background-size: cover;
 }
 
+.bio > .desc {
+    opacity: 1;
+    background-color: rgba(0, 0, 0, 1); /* #000 */
+}
+
 .bio:hover > .desc {
     cursor: pointer;
-    opacity: 1;
 }
 
 .avatar-container {
@@ -153,7 +157,7 @@ header {
     font-size: 1.8em;
     text-align: center;
     color: white;
-    padding-top: 18%;
+    padding-top: 15%;
     opacity: 0;
     font-family: 'FontAwesome';
     font-weight: 300;
