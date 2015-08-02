@@ -3,7 +3,6 @@ var path = require('path');
 var https = require('https');
 var http = require('http');
 var fs = require('fs');
-var io = require('socket.io')(server);
 var TweegestAction = require('./lib/tweegest');
 var express = require('express');
 var app = express();
@@ -110,9 +109,4 @@ var sslOptions = {
 var server = http.createServer(app);
 server.listen(app.get('port'), function () {
 	console.log('Express server started @ https://localhost:' + app.get('port'));
-});
-
-io.on('connection', function () {
-	socket.emit('test', { hello: 'world!' });
-	{ console.log(data); }
 });
