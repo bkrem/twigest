@@ -101,12 +101,11 @@ app.use(function (req, res, next) {
  * SSL, SERVER & SOCKET.IO INIT
  */
 
-var sslOptions = {
+/* var sslOptions = {
 		key: fs.readFileSync(__dirname + '/ssl/twigest.pem'),
 		cert: fs.readFileSync(__dirname + '/ssl/twigest.crt')
-};
+}; */
 
-var server = http.createServer(app);
-server.listen(app.get('port'), function () {
-	console.log('Express server started @ https://localhost:' + app.get('port'));
+app.listen(app.get('port'), function () {
+    console.log('Express server started @ http://localhost:' + app.get('port'));
 });
