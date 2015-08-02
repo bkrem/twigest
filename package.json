@@ -4,7 +4,8 @@
   "description": "An easy way to keep up with the Twitter users most important to you",
   "main": "app.js",
   "scripts": {
-    "test": "grunt"
+    "test": "grunt",
+    "start": "node app.js"
   },
   "keywords": [
     "twitter"
