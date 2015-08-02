@@ -75,6 +75,10 @@ app.get('/userhandle', function (req, res) {
 	});
 });
 
+app.post('/trackid', function (req, res) {
+	res.send(console.log(req));
+});
+
 
 /**
  * ERROR HANDLING
@@ -103,7 +107,7 @@ var sslOptions = {
 		cert: fs.readFileSync(__dirname + '/ssl/twigest.crt')
 };
 
-var server = https.createServer(sslOptions, app);
+var server = http.createServer(app);
 server.listen(app.get('port'), function () {
 	console.log('Express server started @ https://localhost:' + app.get('port'));
 });
