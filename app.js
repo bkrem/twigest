@@ -3,7 +3,7 @@ var path = require('path');
 var https = require('https');
 var http = require('http');
 var fs = require('fs');
-var TweegestAction = require('./lib/tweegest');
+var TwigestAction = require('./lib/twigest');
 var express = require('express');
 var app = express();
 var handlebars = require('express-handlebars').create({
@@ -53,19 +53,19 @@ app.set('port', process.env.PORT || 3000);
 // Landing Page
 app.get('/', function (req, res) {
 	res.render('index');
-	var tweegest = new TweegestAction();
+	var twigest = new TwigestAction();
 
-	//tweegest.getFriendIds('bkrem_', 20);
-	//tweegest.getFriendObjects('bkrem_');
-	//tweegest.getVerifiedFriends('bkrem_', 100);
+	//twigest.getFriendIds('bkrem_', 20);
+	//twigest.getFriendObjects('bkrem_');
+	//twigest.getVerifiedFriends('bkrem_', 100);
 });
 
 // User Handle Form Submission
 app.get('/userhandle', function (req, res) {
 	var handle = req.query.userhandle
-	,	tweegest = new TweegestAction();
+	,	twigest = new TwigestAction();
 
-	tweegest.getFriendObjects({
+	twigest.getFriendObjects({
 		user: handle,
 		callback: function (friends) {
 			console.log(friends);
