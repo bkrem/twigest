@@ -7,6 +7,7 @@
 	{{#each user}}
 		<div class="card-container">
 
+			<!-- Check if verified:true and add icon accordingly -->
 			{{#if verified}}
 				<div class="icon-verified">
 					<span class="fa fa-stack fa-lg">
@@ -68,18 +69,23 @@
 			  		$(this).find('.track').css('background-color', '#34CF7A');
 			  		$(this).find('.track').html('<div class="fa fa-check"></div> Tracking');
 
-					var track = $(this).find('.id');
-					console.log(track.html());
+					var trackId = $(this).find('.id').html();
+
+					$.ajax({
+						url: '/trackid',
+						type: 'GET',
+						data: {pid: trackId},
+						ContentType: 'json',
+						success: function (data, status) {
+							console.log('Data: ' + data + '\nStatus: ' + status);
+						},
+						error: function (err) {
+							console.error('GET failed due to ' + err);
+						}
+					});
+
 				});
 			}
 		);
-	</script>
-
-	<script src="/socket.io/socket.io.js"></script>
-	<script>
-		var socket = io.connect("http://localhost");
-		socket.on('test', function (data) {
-			console.log(data);
-		});
 	</script>
 {{/section}}
