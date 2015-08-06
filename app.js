@@ -3,6 +3,8 @@ var path = require('path');
 var https = require('https');
 var http = require('http');
 var fs = require('fs');
+var mongoose = require('mongoose');
+var credentials = require('./credentials');
 var TwigestAction = require('./lib/twigest');
 var express = require('express');
 var app = express();
@@ -14,10 +16,28 @@ var handlebars = require('express-handlebars').create({
 				this._sections[name] = options.fn(this);
 				return null;
 			},
-			// Adds ability to comma-separate large integer values from Twitter API for frontend
-			// TODO: Add "K" & "M" abbreviations
+			// Comma-separate & abbreviate large integer values from Twitter API for frontend
 			numFormat: function (options) {
-				return options.fn(this).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+				var num = options.fn(this).toString();
+				switch (num.length) {
+					// e.g. 10,000
+					case 5:
+						return num.slice(0,2) + "," + num.slice(2,3) + "K";
+					// e.g. 100,000
+					case 6:
+						return num.slice(0,3) + "K";
+					// e.g. 1,000,000
+					case 7:
+						return num.slice(0,1) + "." + num.slice(1,2) + "M";
+					// e.g. 10,000,000
+					case 8:
+						return num.slice(0,2) + "." + num.slice(2,3) + "M";
+					// e.g. 100,000,000; insanely high & so far unreached, but for good measure ¯\_(ツ)_/¯
+					case 9:
+						return num.slice(0,3) + "." + num.slice(3,4) + "M";
+					default:
+						return num.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+				}
 			}
 		}
 	});
@@ -68,14 +88,16 @@ app.get('/userhandle', function (req, res) {
 	twigest.getFriendObjects({
 		user: handle,
 		callback: function (friends) {
-			console.log(friends);
+			//console.log(friends);
 			res.render('friendOverview', {user: friends});
 		}
 	});
 });
 
-app.post('/trackid', function (req, res) {
-	res.send(console.log(req));
+app.get('/trackid', function (req, res) {
+	var pid = req.query.pid;
+	console.log(pid);
+	res.send("ID " + pid + " received");
 });
 
 
@@ -98,13 +120,31 @@ app.use(function (req, res, next) {
 
 
 /**
- * SSL, SERVER & SOCKET.IO INIT
+ * SSL, SERVER & MONGODB INIT
  */
 
 /* var sslOptions = {
 		key: fs.readFileSync(__dirname + '/ssl/twigest.pem'),
 		cert: fs.readFileSync(__dirname + '/ssl/twigest.crt')
 }; */
+
+// MongoDB environment
+var opts = {
+	server: {
+		socketOptions: { keepAlive: 1 }
+	}
+};
+switch (app.get('env')) {
+	case 'development':
+		mongoose.connect(credentials.mongo.development.connectionString, opts);
+		break;
+	case 'production':
+		mongoose.connect(credentials.mongo.production.connectionString, opts);
+		break;
+	default:
+		throw new Error('Unknown execution environment: ' + app.get('env'));
+}
+
 
 app.listen(app.get('port'), function () {
     console.log('Express server started @ http://localhost:' + app.get('port'));
