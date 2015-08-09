@@ -1,7 +1,6 @@
 var mongoose = require('mongoose');
 
 var userSchema = mongoose.Schema({
-    _id: Number,
     twitterId: Number,
     handle: String,
     name: String,
@@ -11,5 +10,5 @@ var userSchema = mongoose.Schema({
     trackIds: [Number]
 });
 
-var User = mongoose.model('twigestUser', userSchema);
+var User = mongoose.model('User', userSchema);
 module.exports = User;
