@@ -6,6 +6,7 @@ var fs = require('fs');
 var mongoose = require('mongoose');
 var credentials = require('./credentials');
 var TwigestAction = require('./lib/twigest');
+var User = require('./models/twigestUser');
 var express = require('express');
 var app = express();
 var handlebars = require('express-handlebars').create({
@@ -89,15 +90,21 @@ app.get('/userhandle', function (req, res) {
 		user: handle,
 		callback: function (friends) {
 			//console.log(friends);
-			res.render('friendOverview', {user: friends});
+			res.render('friendOverview', { user: friends });
 		}
 	});
 });
 
 app.get('/trackid', function (req, res) {
-	var pid = req.query.pid;
-	console.log(pid);
-	res.send("ID " + pid + " received");
+	console.log(req.query);
+	var user = new User({ twitterId: req.query.twitterId, name: req.query.name });
+	user.save(function (err, user) {
+		if (err) console.error('Error at MongoDB .save(): ' + err);
+	});
+	User.find(function (err, user) {
+		if (err) console.error('Error at MongoDB .find(): ' + err);
+		console.log(user);
+	});
 });
 
 
@@ -107,7 +114,7 @@ app.get('/trackid', function (req, res) {
 
 // 500 page
 app.use(function (err, req, res, next) {
-		console.error('Server encountered following error: ' + err);
+		console.error('Server encountered following status 500 error: ' + err);
 		res.status(500);
 		res.render('500');
 });
