@@ -45,11 +45,11 @@ footer p {
     padding: 50px 0;
 }
 
-* { /* TODO: Remove wildcard selector */
+/* * { /* TODO: Remove wildcard selector
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
-}
+} */
 
 header {
     display: block;
@@ -77,9 +77,9 @@ header {
     border-radius: 8px;
     padding-bottom: 1.5em;
     background-color: #dde1e2;
-    -webkit-box-shadow: #bdc3c7 0 5px 5px;
+/*    -webkit-box-shadow: #bdc3c7 0 5px 5px;
     -moz-box-shadow: #bdc3c7 0 5px 5px;
-    box-shadow: #bdc3c7 0 5px 5px;
+    box-shadow: #bdc3c7 0 5px 5px; */
 }
 
 .bg {
