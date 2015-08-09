@@ -70,11 +70,15 @@
 			  		$(this).find('.track').html('<div class="fa fa-check"></div> Tracking');
 
 					var trackId = $(this).find('.id').html();
+					var trackUserName = $(this).find('.name').html();
 
 					$.ajax({
 						url: '/trackid',
 						type: 'GET',
-						data: {pid: trackId},
+						data: {
+							twitterId: trackId,
+							name: trackUserName
+						},
 						ContentType: 'json',
 						success: function (data, status) {
 							console.log('Data: ' + data + '\nStatus: ' + status);
