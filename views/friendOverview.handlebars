@@ -2,6 +2,21 @@
 
 <h1 class="headline text-center">Select who to track</h1>
 
+<span class="userhandle hidden">{{userhandle}}</span>
+
+<div class="dropdown">
+	<button class="btn btn-default dropdown-toggle" type="button" id="dropdownFilter" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+		Filter
+		<span class="caret"></span>
+	</button>
+	<ul class="dropdown-menu" aria-labelledby="dropdownFilter">
+	    <li><a class="filter-verified" href="/filter-verified">Verified Friends</a></li>
+	    <li><a href="#">Another action</a></li>
+	    <li><a href="#">Something else here</a></li>
+	    <li><a href="#">Separated link</a></li>
+	</ul>
+</div>
+
 <div class="container col-lg-12 text-center">
 
 	{{#each user}}
@@ -19,7 +34,7 @@
 
 			<header>
 				<div class="bio">
-					<img class="bg" src="http://hdwallpapersinhd.com/wallpapers/2015/03/Twitter-Logo-black-dark-HD-wallpaper-2015.jpg" alt="background">
+					<div class="bg"></div>
 					<div class="desc">
 						<span class="id hidden">{{id}}</span>
 						<h3 class="name">{{name}}</h3>

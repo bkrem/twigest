@@ -45,12 +45,17 @@ footer p {
     padding: 50px 0;
 }
 
-/* * { /* TODO: Remove wildcard selector
+/* * {
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
 } */
 
+.dropdown {
+    margin-left: 1%;
+}
+
+/* TODO: Inappropriate header use, change tag */
 header {
     display: block;
     overflow: hidden;
@@ -84,6 +89,7 @@ header {
 
 .bg {
     width: 100%;
+    min-height: 180px;
     max-height: 180px;
     border-bottom: 8px solid #5cc0ff;
     -webkit-background-size: cover;
