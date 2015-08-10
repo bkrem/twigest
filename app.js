@@ -36,6 +36,7 @@ var handlebars = require('express-handlebars').create({
 					// e.g. 100,000,000; insanely high & so far unreached, but for good measure ¯\_(ツ)_/¯
 					case 9:
 						return num.slice(0,3) + "." + num.slice(3,4) + "M";
+					// RegEx for comma-separation
 					default:
 						return num.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 				}
@@ -87,23 +88,32 @@ app.get('/userhandle', function (req, res) {
 	,	twigest = new TwigestAction();
 
 	twigest.getFriendObjects({
-		user: handle,
+		userhandle: handle,
+		count: 12,
 		callback: function (friends) {
-			//console.log(friends);
+			console.log(friends);
 			res.render('friendOverview', { user: friends });
 		}
 	});
 });
 
+// Display verified friends only
+app.get('/filter-verified', function (req, res) {
+	res.send('Received: ' + req.query);
+});
+
 app.get('/trackid', function (req, res) {
 	console.log(req.query);
 	var user = new User({ twitterId: req.query.twitterId, name: req.query.name });
+
 	user.save(function (err, user) {
 		if (err) console.error('Error at MongoDB .save(): ' + err);
 	});
+
+	// TODO: Prevent duplicate user entries
 	User.find(function (err, user) {
 		if (err) console.error('Error at MongoDB .find(): ' + err);
-		console.log(user);
+		//console.log(user);
 	});
 });
 
