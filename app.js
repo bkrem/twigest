@@ -87,6 +87,8 @@ app.get('/userhandle', function (req, res) {
 	var handle = req.query.userhandle
 	,	twigest = new TwigestAction();
 
+	twigest.getFriendIds({ userhandle: handle });
+
 	twigest.getFriendObjects({
 		userhandle: handle,
 		count: 12,
@@ -97,11 +99,22 @@ app.get('/userhandle', function (req, res) {
 	});
 });
 
+
+/**
+ * FILTER OPTIONS
+ */
+
 // Display verified friends only
 app.get('/filter-verified', function (req, res) {
 	res.send('Received: ' + req.query);
 });
 
+
+/**
+ * DB OPERATIONS
+ */
+
+// Create a DB entry for every profile to be tracked
 app.get('/trackid', function (req, res) {
 	console.log(req.query);
 	var user = new User({ twitterId: req.query.twitterId, name: req.query.name });
@@ -115,6 +128,7 @@ app.get('/trackid', function (req, res) {
 		if (err) console.error('Error at MongoDB .find(): ' + err);
 		//console.log(user);
 	});
+	res.send(null);
 });
 
 
