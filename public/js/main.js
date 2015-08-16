@@ -1,6 +1,5 @@
 $(document).ready(function () {
 
-    // Change btn styling and send AJAX GET '/trackid' on clicking "Track"
     $(function trackClick() {
         $('.card-container').on("click", function() {
             $(this).find('.track').css('background-color', '#34CF7A');
