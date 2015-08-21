@@ -25,10 +25,11 @@ $(document).ready(function () {
     });
 
     // Pass userhandle to getVerifiedFriends() on GET '/filter-verified'
-    /*$(function filterVerified() {
+    $(function filterVerified() {
         var userhandle = $('.userhandle').html();
 
         $('.filter-verified').on('click', function () {
+            console.log(userhandle);
             $.ajax({
                 url: '/filter-verified',
                 type: 'GET',
@@ -37,6 +38,8 @@ $(document).ready(function () {
                 success: function (data, status) { console.log('Data: ' + data + '\nStatus: ' + status); },
                 error: function (err) { console.error('GET /filter-verified failed due to: ' + err); }
             });
+
         });
-    }); */
+    });
+
 });
