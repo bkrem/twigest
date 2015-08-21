@@ -77,7 +77,7 @@ app.get('/', function (req, res) {
 	res.render('index');
 	var twigest = new TwigestAction();
 
-	//twigest.getFriendIds('bkrem_', 20);
+	//twigest.getFriendIds({ userhandle: 'bkrem_', count: 20 });
 	//twigest.getFriendObjects('bkrem_');
 	//twigest.getVerifiedFriends('bkrem_', 100);
 });
@@ -87,14 +87,12 @@ app.get('/userhandle', function (req, res) {
 	var handle = req.query.userhandle
 	,	twigest = new TwigestAction();
 
-	twigest.getFriendIds({ userhandle: handle });
-
 	twigest.getFriendObjects({
 		userhandle: handle,
 		count: 12,
 		callback: function (friends) {
-			console.log(friends);
-			res.render('friendOverview', { user: friends });
+			//console.log(friends);
+			res.render('friendOverview', { user: friends, userhandle: handle });
 		}
 	});
 });
@@ -106,7 +104,8 @@ app.get('/userhandle', function (req, res) {
 
 // Display verified friends only
 app.get('/filter-verified', function (req, res) {
-	res.send('Received: ' + req.query);
+	console.log(req.query);
+	res.send(null);
 });
 
 
