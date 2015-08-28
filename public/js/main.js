@@ -29,11 +29,10 @@ $(document).ready(function () {
         var userhandle = $('.userhandle').html();
 
         $('.filter-verified').on('click', function () {
-            console.log(userhandle);
             $.ajax({
                 url: '/filter-verified',
                 type: 'GET',
-                data: { userhandle: userhandle },
+                data: { handle: userhandle },
                 ContentType: 'json',
                 success: function (data, status) { console.log('Data: ' + data + '\nStatus: ' + status); },
                 error: function (err) { console.error('GET /filter-verified failed due to: ' + err); }
