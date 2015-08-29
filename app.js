@@ -89,6 +89,7 @@ app.get('/userhandle', function (req, res) {
 
 	twigest.getFriendObjects({
 		userhandle: handle,
+		count: 20,
 		callback: function (friends) {
 			//console.log(friends);
 			res.render('friendOverview', { user: friends, userhandle: handle });
@@ -106,10 +107,23 @@ app.get('/show-verified', function (req, res) {
 	var userhandle = req.query.handle
 	,	twigest = new TwigestAction();
 	console.log(userhandle);
+
 	twigest.getVerifiedFriends({
 		user: userhandle,
 		callback: function (verifiedFriends) {
 			res.render('friendOverview', { user: verifiedFriends, userhandle: userhandle });
+		}
+	});
+});
+
+app.get('/show-tech', function (req, res) {
+	var userhandle = req.query.handle
+	,	twigest = new TwigestAction();
+
+	twigest.getTechFriends({
+		user: userhandle,
+		callback: function (techFriends) {
+			res.render('friendOverview', { user: techFriends, userhandle: userhandle });
 		}
 	});
 });
