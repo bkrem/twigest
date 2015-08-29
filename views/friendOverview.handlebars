@@ -10,6 +10,7 @@
 		<span class="caret"></span>
 	</button>
 	<ul class="dropdown-menu" aria-labelledby="dropdownFilter">
+		<li><a class="show-all" href="/userhandle">All Friends</a></li>
 	    <li><a class="filter-verified" href="/filter-verified">Verified Friends</a></li>
 	    <li><a href="#">Another action</a></li>
 	    <li><a href="#">Something else here</a></li>
@@ -43,7 +44,7 @@
 				</div>
 
 				<div class="avatar-container">
-					<img src="{{profile_image_url_https}}" alt="avatar" class="avatar">
+					<img src="{{profile_image_url_https}}" alt="avatar" class="avatar"> <!-- FIXME: Transparent bg on .png imgs -->
 					<div class="hover">
 							<div class="fa fa-twitter"></div>
 					</div>
