@@ -89,7 +89,6 @@ app.get('/userhandle', function (req, res) {
 
 	twigest.getFriendObjects({
 		userhandle: handle,
-		count: 12,
 		callback: function (friends) {
 			//console.log(friends);
 			res.render('friendOverview', { user: friends, userhandle: handle });
@@ -103,7 +102,7 @@ app.get('/userhandle', function (req, res) {
  */
 
 // Display verified friends only
-app.get('/filter-verified', function (req, res) {
+app.get('/show-verified', function (req, res) {
 	var userhandle = req.query.handle
 	,	twigest = new TwigestAction();
 	console.log(userhandle);

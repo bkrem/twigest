@@ -24,18 +24,18 @@ $(document).ready(function () {
         });
     });
 
-    // Pass userhandle to getVerifiedFriends() on GET '/filter-verified'
+    // Pass userhandle to getVerifiedFriends() on GET '/show-verified'
     $(function filterVerified() {
         var userhandle = $('.userhandle').html();
 
-        $('.filter-verified').on('click', function () {
+        $('.show-verified').on('click', function () {
             $.ajax({
-                url: '/filter-verified',
+                url: '/show-verified',
                 type: 'GET',
                 data: { handle: userhandle },
                 ContentType: 'json',
                 success: function (data, status) { console.log('Data: ' + data + '\nStatus: ' + status); },
-                error: function (err) { console.error('GET /filter-verified failed due to: ' + err); }
+                error: function (err) { console.error('GET /show-verified failed due to: ' + err); }
             });
 
         });
