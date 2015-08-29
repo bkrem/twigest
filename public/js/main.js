@@ -24,6 +24,11 @@ $(document).ready(function () {
         });
     });
 
+
+    /**
+     * FILTER AJAX
+     */
+
     // Pass userhandle to getVerifiedFriends() on GET '/show-verified'
     $(function filterVerified() {
         var userhandle = $('.userhandle').html();
@@ -38,6 +43,21 @@ $(document).ready(function () {
                 error: function (err) { console.error('GET /show-verified failed due to: ' + err); }
             });
 
+        });
+    });
+
+    $(function filterTech() {
+        var userhandle = $('.userhandle').html();
+
+        $('.show-tech').on('click', function () {
+            $.ajax({
+                url: '/show-tech',
+                type: 'GET',
+                ContentType: 'json',
+                data: { handle: userhandle },
+                success: function (data, status) { console.log('show-tech data: ' + data + '\nStatus: ' + status); },
+                error: function (err) { console.error('GET /show-tech failed due to: ' + err); }
+            });
         });
     });
 
