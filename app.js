@@ -5,7 +5,8 @@ var http = require('http');
 var fs = require('fs');
 var mongoose = require('mongoose');
 var credentials = require('./credentials');
-var TwigestAction = require('./lib/twigest');
+var Twigest = require('./lib/twigest');
+var twigest = new Twigest();
 var User = require('./models/twigestUser');
 var express = require('express');
 var app = express();
@@ -75,7 +76,6 @@ app.set('port', process.env.PORT || 3000);
 // Landing Page
 app.get('/', function (req, res) {
 	res.render('index');
-	var twigest = new TwigestAction();
 
 	//twigest.getFriendIds({ userhandle: 'bkrem_', count: 20 });
 	//twigest.getFriendObjects({ userhandle: 'bkrem_', callback: function (data) {console.log(data);} });
@@ -84,8 +84,7 @@ app.get('/', function (req, res) {
 
 // User Handle Form Submission
 app.get('/userhandle', function (req, res) {
-	var handle = req.query.userhandle
-	,	twigest = new TwigestAction();
+	var handle = req.query.userhandle;
 
 	twigest.getFriendObjects({
 		userhandle: handle,
@@ -104,8 +103,7 @@ app.get('/userhandle', function (req, res) {
 
 // Display verified friends only
 app.get('/show-verified', function (req, res) {
-	var userhandle = req.query.handle
-	,	twigest = new TwigestAction();
+	var userhandle = req.query.handle;
 	console.log(userhandle);
 
 	twigest.getVerifiedFriends({
@@ -117,8 +115,7 @@ app.get('/show-verified', function (req, res) {
 });
 
 app.get('/show-tech', function (req, res) {
-	var userhandle = req.query.handle
-	,	twigest = new TwigestAction();
+	var userhandle = req.query.handle;
 
 	twigest.getTechFriends({
 		user: userhandle,
@@ -129,8 +126,7 @@ app.get('/show-tech', function (req, res) {
 });
 
 app.get('/show-sports', function (req, res) {
-	var userhandle = req.query.handle
-	,	twigest = new TwigestAction();
+	var userhandle = req.query.handle;
 
 	twigest.getSportsFriends({
 		user: userhandle,
