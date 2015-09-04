@@ -89,7 +89,7 @@ app.get('/userhandle', function (req, res) {
 
 	twigest.getFriendObjects({
 		userhandle: handle,
-		count: 20,
+		//count: 20,
 		callback: function (friends) {
 			//console.log(friends);
 			res.render('friendOverview', { user: friends, userhandle: handle });
@@ -124,6 +124,18 @@ app.get('/show-tech', function (req, res) {
 		user: userhandle,
 		callback: function (techFriends) {
 			res.render('friendOverview', { user: techFriends, userhandle: userhandle });
+		}
+	});
+});
+
+app.get('/show-sports', function (req, res) {
+	var userhandle = req.query.handle
+	,	twigest = new TwigestAction();
+
+	twigest.getSportsFriends({
+		user: userhandle,
+		callback: function (sportsFriends) {
+			res.render('friendOverview', { user: sportsFriends, userhandle: userhandle });
 		}
 	});
 });
