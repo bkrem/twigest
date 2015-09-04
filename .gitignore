@@ -10,5 +10,8 @@ credentials.js
 # ignore SSL certs
 ssl/*
 
-# ignore TODO list
+# ignore task list
 TODO.txt
+
+# ignore test data objects
+lib/testUserData.js
