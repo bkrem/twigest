@@ -61,4 +61,19 @@ $(document).ready(function () {
         });
     });
 
+    $(function filterSports() {
+        var userhandle = $('.userhandle').html();
+
+        $('.show-sports').on('click', function () {
+            $.ajax({
+                url: '/show-sports',
+                type: 'GET',
+                ContentType: 'json',
+                data: { handle: userhandle },
+                success: function (data, status) { console.log('show-sports data: ' + data + '\nStatus: ' + status); },
+                error: function (err) { console.error('GET /show-sports failed due to: ' + err); }
+            });
+        });
+    });
+
 });
