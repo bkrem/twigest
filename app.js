@@ -8,43 +8,10 @@ var credentials = require('./credentials');
 var Twigest = require('./lib/twigest');
 var twigest = new Twigest();
 var User = require('./models/twigestUser');
+var keywords = require('./lib/filterKeywords');
 var express = require('express');
 var app = express();
-var handlebars = require('express-handlebars').create({
-		defaultLayout: 'main',
-		helpers: {
-			section: function (name, options) {
-				if (!this._sections) this._sections = {}; // initialize _sections object
-				this._sections[name] = options.fn(this);
-				return null;
-			},
-			// Comma-separate & abbreviate large integer values from Twitter API for frontend
-			numFormat: function (options) {
-				var num = options.fn(this).toString();
-				switch (num.length) {
-					// e.g. 10,000
-					case 5:
-						return num.slice(0,2) + "," + num.slice(2,3) + "K";
-					// e.g. 100,000
-					case 6:
-						return num.slice(0,3) + "K";
-					// e.g. 1,000,000
-					case 7:
-						return num.slice(0,1) + "." + num.slice(1,2) + "M";
-					// e.g. 10,000,000
-					case 8:
-						return num.slice(0,2) + "." + num.slice(2,3) + "M";
-					// e.g. 100,000,000; insanely high & so far unreached, but for good measure ¯\_(ツ)_/¯
-					case 9:
-						return num.slice(0,3) + "." + num.slice(3,4) + "M";
-					// RegEx for comma-separation
-					default:
-						return num.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-				}
-			}
-		}
-	});
-
+var handlebars = require('./config/handlebars-config');
 // Set up handlebars view engine
 app.set('views', path.join(__dirname, 'views'));
 app.engine('handlebars', handlebars.engine);
@@ -143,8 +110,13 @@ app.get('/show-sports', function (req, res) {
 
 // Create a DB entry for every profile to be tracked
 app.get('/trackid', function (req, res) {
+	// TODO: Add topicTags depending on whether Tech/Sports etc. return truthy
 	console.log(req.query);
-	var user = new User({ twitterId: req.query.twitterId, name: req.query.name });
+	var user = new User({
+		twitterId: req.query.twitterId,
+		name: req.query.name,
+
+	});
 
 	user.save(function (err, user) {
 		if (err) console.error('Error at MongoDB .save(): ' + err);
