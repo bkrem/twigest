@@ -1,3 +1,4 @@
+/*jshint laxcomma:true*/
 $(document).ready(function () {
 
     // Change btn styling and send AJAX GET '/trackid' on clicking "Track"
@@ -6,15 +7,17 @@ $(document).ready(function () {
             $(this).find('.track').css('background-color', '#34CF7A');
             $(this).find('.track').html('<div class="fa fa-check"></div> Tracking');
 
-            var trackId = $(this).find('.id').html();
-            var trackUserName = $(this).find('.name').html();
+            var trackId = $(this).find('.id').html()
+            ,   trackUserName = $(this).find('.name').html()
+            ,   trackDescription = $(this).find('.desc-detail').html();
 
             $.ajax({
                 url: '/trackid',
                 type: 'GET',
                 data: {
                     twitterId: trackId,
-                    name: trackUserName
+                    name: trackUserName,
+                    description: trackDescription
                 },
                 ContentType: 'json',
                 success: function (data, status) { console.log('Data: ' + data + '\nStatus: ' + status); },
