@@ -6,12 +6,14 @@ var fs = require('fs');
 var mongoose = require('mongoose');
 var credentials = require('./credentials');
 var Twigest = require('./lib/twigest');
-var twigest = new Twigest();
 var User = require('./models/twigestUser');
 var keywords = require('./lib/filterKeywords');
 var express = require('express');
-var app = express();
 var handlebars = require('./config/handlebars-config');
+
+var app = express();
+var twigest = new Twigest();
+
 // Set up handlebars view engine
 app.set('views', path.join(__dirname, 'views'));
 app.engine('handlebars', handlebars.engine);
