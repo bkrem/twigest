@@ -19,10 +19,10 @@
 
 <div class="container col-lg-12 text-center">
 
+	<!-- Iterate over all user objects for 1 card view per profile -->
 	{{#each user}}
 		<div class="card-container">
 
-			<!-- Check if verified:true and add icon accordingly -->
 			{{#if verified}}
 				<div class="icon-verified">
 					<span class="fa fa-stack fa-lg">
@@ -76,5 +76,7 @@
 </div>
 
 {{#section 'jquery'}}
+{{#section 'bootstrap'}}
 	<script src="./js/main.js"></script>
+{{/section}}
 {{/section}}
