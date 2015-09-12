@@ -8,6 +8,14 @@ var config = handlebars.create({
 				this._sections[name] = options.fn(this);
 				return null;
 			},
+			sixCardPagination: function (context, options) {
+				var cardsPerPage = 6, pageArray = [];
+				for (var i = 0; i < cardsPerPage; i++) {
+					pageArray.push(options.fn(context[i]));
+				}
+				console.log(pageArray);
+				return pageArray;
+			},
 			// Comma-separate & abbreviate large integer values from Twitter API for frontend
 			numFormat: function (options) {
 				var num = options.fn(this).toString();
