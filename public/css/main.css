@@ -124,7 +124,9 @@ header {
 
 .icon-verified {
     position: absolute;
-    z-index: 99;
+    padding-left: 280px;
+    padding-top: 2px;
+    z-index: 2;
 }
 
 .icon-verified .fa-certificate {
