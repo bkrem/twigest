@@ -1,9 +1,9 @@
 var mongoose = require('mongoose');
 
 var userSchema = mongoose.Schema({
-    twitterId: Number,
+    twitterId: { type: Number, required: true, unique: true, dropDups: true },
     handle: String,
-    name: String,
+    name: { type: String, required: true },
     bio: String,
     verified: Boolean,
     topicTags: [String],
