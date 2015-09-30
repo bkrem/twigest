@@ -117,7 +117,9 @@ app.get('/trackid', function (req, res) {
 	var user = new User({
 		twitterId: req.query.twitterId,
 		name: req.query.name,
-
+		handle: req.query.handle,
+		description: req.query.description,
+		verified: req.query.verified
 	});
 
 	user.save(function (err, user) {
@@ -127,7 +129,7 @@ app.get('/trackid', function (req, res) {
 	// TODO: Prevent duplicate user entries
 	User.find(function (err, user) {
 		if (err) console.error('Error at MongoDB .find(): ' + err);
-		//console.log(user);
+		console.log(user);
 	});
 	res.send(null);
 });

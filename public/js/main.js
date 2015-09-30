@@ -9,7 +9,11 @@ $(document).ready(function () {
 
             var trackId = $(this).find('.id').html()
             ,   trackUserName = $(this).find('.name').html()
-            ,   trackDescription = $(this).find('.desc-detail').html();
+            ,   trackDescription = $(this).find('.desc-detail').html()
+            ,   trackHandle = $(this).find('.handle').html()
+            ,   isVerified = $(this).find('.icon-verified').length !== 0 ? true : false;
+
+            console.log(isVerified);
 
             $.ajax({
                 url: '/trackid',
@@ -17,7 +21,9 @@ $(document).ready(function () {
                 data: {
                     twitterId: trackId,
                     name: trackUserName,
-                    description: trackDescription
+                    handle: trackHandle,
+                    description: trackDescription,
+                    verified: isVerified
                 },
                 ContentType: 'json',
                 success: function (data, status) { console.log('Data: ' + data + '\nStatus: ' + status); },
