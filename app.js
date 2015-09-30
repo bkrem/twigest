@@ -6,7 +6,7 @@ var fs = require('fs');
 var mongoose = require('mongoose');
 var credentials = require('./credentials');
 var Twigest = require('./lib/twigest');
-var User = require('./models/twigestUser');
+var twigestUser = require('./models/twigestUser');
 var keywords = require('./lib/filterKeywords');
 var express = require('express');
 var handlebars = require('./config/handlebars-config');
@@ -112,22 +112,32 @@ app.get('/show-sports', function (req, res) {
 
 // Create a DB entry for every profile to be tracked
 app.get('/trackid', function (req, res) {
-	// TODO: Add topicTags depending on whether Tech/Sports etc. return truthy
 	console.log(req.query);
-	var user = new User({
+	var checkTags = function () {
+		var topicTags = []
+		,	desc = req.query.description;
+		for (var topic in keywords) {
+			for (var i = 0; i < keywords[topic].length; i++) {
+				if (desc.toLowerCase().indexOf(keywords[topic][i]) !== -1) topicTags.push(topic);
+			}
+		}
+		//console.log(topicTags);
+		return topicTags;
+	};
+	var user = new twigestUser({
 		twitterId: req.query.twitterId,
 		name: req.query.name,
 		handle: req.query.handle,
 		description: req.query.description,
-		verified: req.query.verified
+		verified: req.query.verified,
+		topicTags: checkTags()
 	});
 
 	user.save(function (err, user) {
 		if (err) console.error('Error at MongoDB .save(): ' + err);
 	});
 
-	// TODO: Prevent duplicate user entries
-	User.find(function (err, user) {
+	twigestUser.find(function (err, user) {
 		if (err) console.error('Error at MongoDB .find(): ' + err);
 		console.log(user);
 	});
