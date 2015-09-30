@@ -6,7 +6,7 @@ var fs = require('fs');
 var mongoose = require('mongoose');
 var credentials = require('./credentials');
 var Twigest = require('./lib/twigest');
-var twigestUser = require('./models/twigestUser');
+var TwigestUser = require('./models/twigestUser');
 var keywords = require('./lib/filterKeywords');
 var express = require('express');
 var handlebars = require('./config/handlebars-config');
@@ -124,20 +124,22 @@ app.get('/trackid', function (req, res) {
 		//console.log(topicTags);
 		return topicTags;
 	};
-	var user = new twigestUser({
-		twitterId: req.query.twitterId,
-		name: req.query.name,
-		handle: req.query.handle,
-		description: req.query.description,
-		verified: req.query.verified,
-		topicTags: checkTags()
+	var user = new TwigestUser({
+		trackedUsers: {
+			twitterId: req.query.twitterId,
+			name: req.query.name,
+			handle: req.query.handle,
+			description: req.query.description,
+			verified: req.query.verified,
+			topicTags: checkTags()
+		}
 	});
 
 	user.save(function (err, user) {
 		if (err) console.error('Error at MongoDB .save(): ' + err);
 	});
 
-	twigestUser.find(function (err, user) {
+	TwigestUser.find(function (err, user) {
 		if (err) console.error('Error at MongoDB .find(): ' + err);
 		console.log(user);
 	});
