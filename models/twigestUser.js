@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
 
-var userSchema = mongoose.Schema({
+var twigestUserSchema = mongoose.Schema({
     twitterId: { type: Number, required: true, unique: true, dropDups: true },
     handle: String,
     name: { type: String, required: true },
@@ -9,5 +9,5 @@ var userSchema = mongoose.Schema({
     topicTags: [String]
 });
 
-var User = mongoose.model('User', userSchema);
-module.exports = User;
+var twigestUser = mongoose.model('twigestUser', twigestUserSchema);
+module.exports = twigestUser;
