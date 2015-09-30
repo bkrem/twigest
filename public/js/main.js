@@ -4,16 +4,16 @@ $(document).ready(function () {
     // Change btn styling and send AJAX GET '/trackid' on clicking "Track"
     $(function trackClick() {
         $('.card-container').on("click", function() {
+            // Styling
             $(this).find('.track').css('background-color', '#34CF7A');
             $(this).find('.track').html('<div class="fa fa-check"></div> Tracking');
 
+            // Tracking AJAX
             var trackId = $(this).find('.id').html()
             ,   trackUserName = $(this).find('.name').html()
             ,   trackDescription = $(this).find('.desc-detail').html()
             ,   trackHandle = $(this).find('.handle').html()
             ,   isVerified = $(this).find('.icon-verified').length !== 0 ? true : false;
-
-            console.log(isVerified);
 
             $.ajax({
                 url: '/trackid',
