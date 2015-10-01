@@ -113,6 +113,7 @@ app.get('/show-sports', function (req, res) {
 // Create a DB entry for every profile to be tracked
 app.get('/trackid', function (req, res) {
 	console.log(req.query);
+	// TODO: Functional rewrite of checkTags()
 	var checkTags = function () {
 		var topicTags = []
 		,	desc = req.query.description;
@@ -121,10 +122,12 @@ app.get('/trackid', function (req, res) {
 				if (desc.toLowerCase().indexOf(keywords[topic][i]) !== -1) topicTags.push(topic);
 			}
 		}
-		//console.log(topicTags);
 		return topicTags;
 	};
 	var user = new TwigestUser({
+		user: {
+			userhandle: req.query.userhandle
+		},
 		trackedUsers: {
 			twitterId: req.query.twitterId,
 			name: req.query.name,
