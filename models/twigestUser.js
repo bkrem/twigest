@@ -1,16 +1,15 @@
 var mongoose = require('mongoose');
 
 var twigestUserSchema = mongoose.Schema({
-    // TODO: Expand user object
     user: {
-        handle: String
+        userhandle: { type: String, required: true, unique: true, dropDups: true }
     },
     trackedUsers: {
-        twitterId: { type: Number, required: true, unique: true, dropDups: true },
+        twitterId: { type: Number, sparse: true, required: false, unique: true, dropDups: true },
         handle: String,
-        name: { type: String, required: true },
+        name: { type: String, required: false },
         description: String, // TODO: Find solution for empty descriptions when required:true
-        verified: { type: Boolean, required: true },
+        verified: { type: Boolean, required: false },
         topicTags: [String]
     }
 });
