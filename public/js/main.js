@@ -9,7 +9,8 @@ $(document).ready(function () {
             $(this).find('.track').html('<div class="fa fa-check"></div> Tracking');
 
             // Tracking AJAX
-            var trackId = $(this).find('.id').html()
+            var userhandle = $('.userhandle').html()
+            ,   trackId = $(this).find('.id').html()
             ,   trackUserName = $(this).find('.name').html()
             ,   trackDescription = $(this).find('.desc-detail').html()
             ,   trackHandle = $(this).find('.handle').html()
@@ -19,6 +20,7 @@ $(document).ready(function () {
                 url: '/trackid',
                 type: 'GET',
                 data: {
+                    userhandle: userhandle,
                     twitterId: trackId,
                     name: trackUserName,
                     handle: trackHandle,
