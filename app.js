@@ -6,13 +6,15 @@ var fs = require('fs');
 var mongoose = require('mongoose');
 var credentials = require('./credentials');
 var Twigest = require('./lib/twigest');
-var TwigestUser = require('./models/twigestUser');
+var TrackedUser = require('./models/trackedUser');
 var keywords = require('./lib/filterKeywords');
 var express = require('express');
 var handlebars = require('./config/handlebars-config');
+var NodeCache = require('node-cache');
 
 var app = express();
 var twigest = new Twigest();
+var twigestCache = new NodeCache();
 
 // Set up handlebars view engine
 app.set('views', path.join(__dirname, 'views'));
@@ -54,6 +56,12 @@ app.get('/', function (req, res) {
 // User Handle Form Submission
 app.get('/userhandle', function (req, res) {
 	var handle = req.query.userhandle;
+
+	// TODO: Fix setTwigestCache() scope, change this
+	twigestCache.set("sessionUserhandle", handle, function (err, success) {
+		if (err) return console.error('twigestCache SET ' + "sessionUserhandle" + ' failed: ' + err);
+		console.log('twigestCache created key for ' + "sessionUserhandle" + ': ' + success);
+	});
 
 	twigest.getFriendObjects({
 		userhandle: handle,
@@ -124,25 +132,20 @@ app.get('/trackid', function (req, res) {
 		}
 		return topicTags;
 	};
-	var user = new TwigestUser({
-		user: {
-			userhandle: req.query.userhandle
-		},
-		trackedUsers: {
+	var user = new TrackedUser({
 			twitterId: req.query.twitterId,
 			name: req.query.name,
 			handle: req.query.handle,
 			description: req.query.description,
 			verified: req.query.verified,
 			topicTags: checkTags()
-		}
 	});
 
 	user.save(function (err, user) {
 		if (err) console.error('Error at MongoDB .save(): ' + err);
 	});
 
-	TwigestUser.find(function (err, user) {
+	TrackedUser.find(function (err, user) {
 		if (err) console.error('Error at MongoDB .find(): ' + err);
 		console.log(user);
 	});
