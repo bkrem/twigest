@@ -79,6 +79,7 @@ app.get('/userhandle', function (req, res) {
  */
 
 // Display verified friends only
+// FIXME: Figure out persistence of userhandle AJAX for filters.
 app.get('/show-verified', function (req, res) {
 	var userhandle = req.query.handle;
 	console.log(userhandle);
@@ -120,11 +121,11 @@ app.get('/show-sports', function (req, res) {
 
 // Create a DB entry for every profile to be tracked
 app.get('/trackid', function (req, res) {
-	console.log(req.query);
+	var q = req.query;
 	// TODO: Functional rewrite of checkTags()
 	var checkTags = function () {
 		var topicTags = []
-		,	desc = req.query.description;
+		,	desc = q.description;
 		for (var topic in keywords) {
 			for (var i = 0; i < keywords[topic].length; i++) {
 				if (desc.toLowerCase().indexOf(keywords[topic][i]) !== -1) topicTags.push(topic);
@@ -132,22 +133,35 @@ app.get('/trackid', function (req, res) {
 		}
 		return topicTags;
 	};
-	var user = new TrackedUser({
-			twitterId: req.query.twitterId,
-			name: req.query.name,
-			handle: req.query.handle,
-			description: req.query.description,
-			verified: req.query.verified,
-			topicTags: checkTags()
+	var newUser = new TrackedUser({
+			twitterId: q.twitterId,
+			name: q.name,
+			handle: q.handle,
+			description: q.description,
+			verified: q.verified,
+			topicTags: checkTags(),
+			trackedBy: q.userhandle
 	});
 
-	user.save(function (err, user) {
-		if (err) console.error('Error at MongoDB .save(): ' + err);
-	});
-
-	TrackedUser.find(function (err, user) {
-		if (err) console.error('Error at MongoDB .find(): ' + err);
-		console.log(user);
+	// Check whether the profile to-be-tracked is present in "trackedUsers" collection
+	TrackedUser.find( { twitterId: q.twitterId }, function (err, user) {
+		if (err) throw new Error("Error at initial .find twitterId: " + err);
+		// If returned array is empty => create new trackedUser document
+		if (user.length === 0) {
+			console.log("twitterId " + q.twitterId + " is not present in DB. Adding...");
+			newUser.save(function (err, user) {
+				if (err) console.error('Error at MongoDB .save(): ' + err);
+				return console.log('Added ' + user.name + ' to DB successfully!');
+			});
+			// Otherwise, update the existing doc's "trackedBy" prop by adding
+			// current Twigest user wishing to track this profile.
+		} else {
+			console.log('User is present in DB: ' + user);
+			TrackedUser.update({ twitterId: q.twitterId }, { $addToSet: { trackedBy: q.userhandle } }, function (err, u) {
+				if (err) console.error(err);
+				return console.log(u);
+			});
+		}
 	});
 	res.send(null);
 });
