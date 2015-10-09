@@ -7,6 +7,7 @@ var mongoose = require('mongoose');
 var credentials = require('./credentials');
 var Twigest = require('./lib/twigest');
 var TrackedUser = require('./models/trackedUser');
+var dbOps = require('./lib/dbOps');
 var keywords = require('./lib/filterKeywords');
 var express = require('express');
 var handlebars = require('./config/handlebars-config');
@@ -121,48 +122,11 @@ app.get('/show-sports', function (req, res) {
 
 // Create a DB entry for every profile to be tracked
 app.get('/trackid', function (req, res) {
-	var q = req.query;
-	// TODO: Functional rewrite of checkTags()
-	var checkTags = function () {
-		var topicTags = []
-		,	desc = q.description;
-		for (var topic in keywords) {
-			for (var i = 0; i < keywords[topic].length; i++) {
-				if (desc.toLowerCase().indexOf(keywords[topic][i]) !== -1) topicTags.push(topic);
-			}
-		}
-		return topicTags;
-	};
-	var newUser = new TrackedUser({
-			twitterId: q.twitterId,
-			name: q.name,
-			handle: q.handle,
-			description: q.description,
-			verified: q.verified,
-			topicTags: checkTags(),
-			trackedBy: q.userhandle
-	});
-
-	// Check whether the profile to-be-tracked is present in "trackedUsers" collection
-	TrackedUser.find( { twitterId: q.twitterId }, function (err, user) {
-		if (err) throw new Error("Error at initial .find twitterId: " + err);
-		// If returned array is empty => create new trackedUser document
-		if (user.length === 0) {
-			console.log("twitterId " + q.twitterId + " is not present in DB. Adding...");
-			newUser.save(function (err, user) {
-				if (err) console.error('Error at MongoDB .save(): ' + err);
-				return console.log('Added ' + user.name + ' to DB successfully!');
-			});
-			// Otherwise, update the existing doc's "trackedBy" prop by adding
-			// current Twigest user wishing to track this profile.
-		} else {
-			console.log('User is present in DB: ' + user);
-			TrackedUser.update({ twitterId: q.twitterId }, { $addToSet: { trackedBy: q.userhandle } }, function (err, u) {
-				if (err) console.error(err);
-				return console.log(u);
-			});
-		}
-	});
+	try {
+		dbOps.trackUser(req);
+	} catch (e) {
+		throw new Error("Encountered error at dbOps.trackUser(): " + e);
+	}
 	res.send(null);
 });
 
