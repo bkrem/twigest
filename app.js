@@ -60,8 +60,8 @@ app.get('/userhandle', function (req, res) {
 
 	// TODO: Fix setTwigestCache() scope, change this
 	twigestCache.set("sessionUserhandle", handle, function (err, success) {
-		if (err) return console.error('twigestCache SET ' + "sessionUserhandle" + ' failed: ' + err);
-		console.log('twigestCache created key for ' + "sessionUserhandle" + ': ' + success);
+		if (err) return console.error('twigestCache SET ' + 'sessionUserhandle' + ' failed: ' + err);
+		console.log('twigestCache created key for ' + 'sessionUserhandle' + ': ' + success);
 	});
 
 	twigest.getFriendObjects({
