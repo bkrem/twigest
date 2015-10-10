@@ -6,6 +6,9 @@ var trackedUserSchema = mongoose.Schema({
     name: { type: String, required: false },
     description: String, // TODO: Find solution for empty descriptions when required:true
     verified: { type: Boolean, required: false },
+    statuses_count: Number,
+    followers_count: Number,
+    friends_count: Number,
     topicTags: [String],
     trackedBy: [String]
 });

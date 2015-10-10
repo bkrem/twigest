@@ -14,7 +14,10 @@ $(document).ready(function () {
             ,   trackUserName = $(this).find('.name').html()
             ,   trackDescription = $(this).find('.desc-detail').html()
             ,   trackHandle = $(this).find('.handle').html()
-            ,   isVerified = $(this).find('.icon-verified').length !== 0 ? true : false;
+            ,   isVerified = $(this).find('.icon-verified').length !== 0 ? true : false
+            ,   statuses_count = $(this).find('.statuses_count').html()
+            ,   followers_count = $(this).find('.followers_count').html()
+            ,   friends_count = $(this).find('.friends_count').html();
 
             $.ajax({
                 url: '/trackid',
@@ -25,7 +28,10 @@ $(document).ready(function () {
                     name: trackUserName,
                     handle: trackHandle,
                     description: trackDescription,
-                    verified: isVerified
+                    verified: isVerified,
+                    statuses_count: statuses_count,
+                    followers_count: followers_count,
+                    friends_count: friends_count
                 },
                 ContentType: 'json',
                 success: function (data, status) { console.log('Data: ' + data + '\nStatus: ' + status); },

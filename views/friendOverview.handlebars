@@ -55,14 +55,17 @@
 				<div class="data">
 					<ul>
 						<li>
+							<span class="statuses_count hidden">{{statuses_count}}</span>
 							{{#numFormat}}{{statuses_count}}{{/numFormat}}
 							<span>Tweets</span>
 						</li>
 						<li>
+							<span class="followers_count hidden">{{followers_count}}</span>
 							{{#numFormat}}{{followers_count}}{{/numFormat}}
 							<span>Followers</span>
 						</li>
 						<li>
+							<span class="friends_count hidden">{{friends_count}}</span>
 							{{#numFormat}}{{friends_count}}{{/numFormat}}
 							<span>Following</span>
 						</li>
