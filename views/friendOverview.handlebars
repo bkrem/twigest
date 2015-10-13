@@ -4,17 +4,73 @@
 
 <span class="userhandle hidden">{{userhandle}}</span>
 
-<div class="dropdown">
-	<button class="btn btn-default dropdown-toggle" type="button" id="dropdownFilter" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-		Filter
-		<span class="caret"></span>
-	</button>
-	<ul class="dropdown-menu" aria-labelledby="dropdownFilter">
-		<li><a class="show-all" href="/userhandle">All Friends</a></li>
-	    <li><a class="show-verified" href="/show-verified">Verified Friends</a></li>
-	    <li><a class="show-tech" href="/show-tech">Tech</a></li>
-	    <li><a class="show-sports" href="/show-sports">Sports</a></li>
-	</ul>
+<div class="container-dropdowns">
+	<!-- Dropdown menu for filter options -->
+	<div class="dropdown">
+		<button class="btn btn-default dropdown-toggle" type="button" id="dropdownFilter" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+			<i class="fa fa-filter"></i>
+			Filter
+			<span class="caret"></span>
+		</button>
+		<ul class="dropdown-menu" aria-labelledby="dropdownFilter">
+			<li>
+				<a class="show-all" href="/userhandle">
+					All Friends
+				</a>
+			</li>
+		    <li>
+				<a class="show-verified" href="/show-verified">
+					Verified Friends
+				</a>
+			</li>
+		    <li>
+				<a class="show-tech" href="/show-tech">
+					Tech
+				</a>
+			</li>
+		    <li>
+				<a class="show-sports" href="/show-sports">
+					Sports
+				</a>
+			</li>
+		</ul>
+	</div>
+
+	<!-- Dropdown menu for sort options -->
+	<div class="dropdown">
+		<button class="btn btn-default dropdown-toggle" type="button" id="dropdownSort" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+			<i class="fa fa-sort-amount-desc"></i>
+			Sort
+			<span class="caret"></span>
+		</button>
+		<ul class="dropdown-menu" aria-labelledby="dropdownFilter">
+			<li>
+				<a class="sort-recent" href="#">
+					Recently Followed
+				</a>
+			</li>
+			<li>
+				<a class="sort-followers" href="#">
+					Follower Count
+				</a>
+			</li>
+			<li>
+				<a class="sort-friends" href="#">
+					Following Count
+				</a>
+			</li>
+			<li>
+				<a class="sort-statuses" href="#">
+					Tweet Count
+				</a>
+			</li>
+			<li>
+				<a class="sort-alpha" href="#">
+					Last Name
+				</a>
+			</li>
+		</ul>
+	</div>
 </div>
 
 <div class="container col-lg-12 text-center">
