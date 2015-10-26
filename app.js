@@ -7,6 +7,7 @@ var mongoose = require('mongoose');
 var credentials = require('./credentials');
 var Twigest = require('./lib/twigest');
 var TrackedUser = require('./models/trackedUser');
+var friendDiscoverData = require('./models/friendDiscoverData');
 var dbOps = require('./lib/dbOps');
 var keywords = require('./lib/filterKeywords');
 var express = require('express');
@@ -54,9 +55,30 @@ app.get('/', function (req, res) {
 	//twigest.getVerifiedFriends( { userhandle: 'bkrem_', count: 100, callback: function (data) {console.log(data);} });
 });
 
+// Explore Page
+app.get('/explore', function (req, res) {
+	res.render('exploreForm');
+});
+
 // User Handle Form Submission
 app.get('/userhandle', function (req, res) {
 	var handle = req.query.userhandle;
+
+	twigest.getFriendObjects({
+		userhandle: handle,
+		//count: 20,
+		callback: function (friends) {
+			//console.log(friends);
+			// Attempt to save friend list of submitted handle to DB
+			try {
+				dbOps.dumpDiscoverData(handle, friends);
+			} catch (e) {
+				throw new Error('Encountered error at dbOps.dumpDiscoverData(): ' + e);
+			}
+
+			res.render('friendOverview', { user: friends, userhandle: handle });
+		}
+	});
 
 	// TODO: Fix setTwigestCache() scope, change this
 	twigestCache.set("sessionUserhandle", handle, function (err, success) {
@@ -64,14 +86,7 @@ app.get('/userhandle', function (req, res) {
 		console.log('twigestCache created key for ' + 'sessionUserhandle' + ': ' + success);
 	});
 
-	twigest.getFriendObjects({
-		userhandle: handle,
-		//count: 20,
-		callback: function (friends) {
-			//console.log(friends);
-			res.render('friendOverview', { user: friends, userhandle: handle });
-		}
-	});
+
 });
 
 
