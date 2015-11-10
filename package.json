@@ -17,6 +17,7 @@
     "express-handlebars": "^2.0.1",
     "mongoose": "^4.1.1",
     "node-cache": "^3.0.0",
+    "oauthio": "^0.3.3",
     "twit": "^2.1.0"
   }
 }

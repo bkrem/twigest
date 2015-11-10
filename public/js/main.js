@@ -1,18 +1,6 @@
 /*jshint laxcomma:true*/
 $(document).ready(function () {
 
-    OAuth.initialize('JT9KoQrEGUjSP5t9FXOYhSUTG');
-
-    $('.btn-twitter-signin').on('click', function () {
-        OAuth.popup('twitter')
-        .done(function(result) {
-            console.log("Result: " + result);
-        })
-        .fail(function (err) {
-            console.error("Oauth.popup() error: " + err);
-        });
-    });
-
     // Change btn styling and send AJAX GET '/trackid' on clicking "Track"
     $(function trackClick() {
         $('.card-container').on("click", function() {

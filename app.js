@@ -4,19 +4,27 @@ var https = require('https');
 var http = require('http');
 var fs = require('fs');
 var mongoose = require('mongoose');
+var express = require('express');
+var NodeCache = require('node-cache');
 var credentials = require('./credentials');
 var Twigest = require('./lib/twigest');
 var TrackedUser = require('./models/trackedUser');
 var friendDiscoverData = require('./models/friendDiscoverData');
 var dbOps = require('./lib/dbOps');
 var keywords = require('./lib/filterKeywords');
-var express = require('express');
 var handlebars = require('./config/handlebars-config');
-var NodeCache = require('node-cache');
+var OAuth = require('oauthio');
 
 var app = express();
 var twigest = new Twigest();
 var twigestCache = new NodeCache();
+
+// Initialize OAuth
+try {
+	OAuth.initialize(credentials.oauthio.publicKey, credentials.oauthio.secretKey);
+} catch (e) {
+	throw new Error("OAuth.initialize() failed: ");
+}
 
 // Set up handlebars view engine
 app.set('views', path.join(__dirname, 'views'));
@@ -53,6 +61,40 @@ app.get('/', function (req, res) {
 	//twigest.getFriendIds({ userhandle: 'bkrem_', count: 20 });
 	//twigest.getFriendObjects({ userhandle: 'bkrem_', callback: function (data) {console.log(data);} });
 	//twigest.getVerifiedFriends( { userhandle: 'bkrem_', count: 100, callback: function (data) {console.log(data);} });
+});
+
+// Sign-in
+app.get('/oauth/redirect', OAuth.redirect(function (result, req, res) {
+	// TODO
+}));
+
+app.get('/signin', function (req, res) {
+	OAuth.auth(twitter, 'http://localhost:3000/oauth/redirect');
+});
+
+app.get('/oauth/token', function (req, res) {
+    // This generates a token and stores it in the session
+    var token = oauth.generateStateToken(req);
+    // This sends the token to the front-end
+    req.json({
+        token: token
+    });
+});
+
+app.post('/oauth/signin', function (req, res) {
+	var code = req.body.code;
+	OAuth.auth('twitter', req.session, {
+		code: code
+	})
+	.then(function (request_object) {
+		// Here the user is authenticated, and the access token
+		// for the requested provider is stored in the session.
+		res.send(200, 'The user is authenticated');
+	})
+	.fail(function (e) {
+		console.log(e);
+		res.send(400, 'Code is incorrect');
+	});
 });
 
 // Explore Page
