@@ -69,7 +69,11 @@ app.get('/userhandle', function (req, res) {
 		//count: 20,
 		callback: function (friends) {
 			//console.log(friends);
-			res.render('friendOverview', { user: friends, userhandle: handle });
+			if (friends instanceof Error) {
+				res.send("Sorry that user handle seems to be incorrect! <a href='/'>Back</a>");
+			} else {
+				res.render('friendOverview', { user: friends, userhandle: handle });
+			}
 		}
 	});
 });
