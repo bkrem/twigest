@@ -1,6 +1,8 @@
 /*jshint laxcomma:true*/
 $(document).ready(function () {
 
+    var userhandle = $('.userhandle').html();
+
     // Change btn styling and send AJAX GET '/trackid' on clicking "Track"
     $(function trackClick() {
         $('.card-container').on("click", function() {
@@ -9,8 +11,7 @@ $(document).ready(function () {
             $(this).find('.track').html('<div class="fa fa-check"></div> Tracking');
 
             // Tracking AJAX
-            var userhandle = $('.userhandle').html()
-            ,   trackId = $(this).find('.id').html()
+            var trackId = $(this).find('.id').html()
             ,   trackUserName = $(this).find('.name').html()
             ,   trackDescription = $(this).find('.desc-detail').html()
             ,   trackHandle = $(this).find('.handle').html()
@@ -48,8 +49,6 @@ $(document).ready(function () {
 
     // Pass userhandle to getVerifiedFriends() on GET '/show-verified'
     $(function filterVerified() {
-        var userhandle = $('.userhandle').html();
-
         $('.show-verified').on('click', function () {
             $.ajax({
                 url: '/show-verified',
@@ -64,8 +63,6 @@ $(document).ready(function () {
     });
 
     $(function filterTech() {
-        var userhandle = $('.userhandle').html();
-
         $('.show-tech').on('click', function () {
             $.ajax({
                 url: '/show-tech',
@@ -79,8 +76,6 @@ $(document).ready(function () {
     });
 
     $(function filterSports() {
-        var userhandle = $('.userhandle').html();
-
         $('.show-sports').on('click', function () {
             $.ajax({
                 url: '/show-sports',
