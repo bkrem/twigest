@@ -92,6 +92,33 @@ header {
     box-shadow: #bdc3c7 0 5px 5px; */
 }
 
+.container-show-tweets {
+    position: absolute;
+    visibility: hidden;
+    z-index: 3;
+}
+
+.container-show-tweets .btn-show-tweets {
+    background: none;
+    border: none;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.card-container:hover .container-show-tweets {
+    visibility: visible;
+}
+
+.icon-verified {
+    position: absolute;
+    padding-left: 280px;
+    padding-top: 2px;
+    z-index: 2;
+}
+
+.icon-verified .fa-certificate {
+    color: #55ACEE;
+}
+
 .bg {
     width: 100%;
     min-height: 180px;
@@ -125,17 +152,6 @@ header {
 
 .avatar-container:hover > .hover {
     opacity: 1;
-}
-
-.icon-verified {
-    position: absolute;
-    padding-left: 280px;
-    padding-top: 2px;
-    z-index: 2;
-}
-
-.icon-verified .fa-certificate {
-    color: #55ACEE;
 }
 
 .avatar {
